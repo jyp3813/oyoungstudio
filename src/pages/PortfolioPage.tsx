@@ -31,14 +31,14 @@ export default function PortfolioPage() {
 
   const filteredProjects = filter === 'All' 
     ? projects.length > 0 ? projects : [
-        { title: "The Modern Soul", category: "Brand Film", thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000", id: 1, videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { title: "Urban Dynamics", category: "Commercial", thumbnail: "https://images.unsplash.com/photo-1533750516457-a7f992034fce?auto=format&fit=crop&q=80&w=1000", id: 2, videoUrl: "" },
-        { title: "Neon Nights", category: "Music Video", thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=1000", id: 3, videoUrl: "" },
-        { title: "Broadcast Special", category: "Broadcast", thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1000", id: 5, videoUrl: "" },
-        { title: "Craftsmanship", category: "Brand Film", thumbnail: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000", id: 4, videoUrl: "" },
-        { title: "Live Event X", category: "Broadcast", thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000", id: 6, videoUrl: "" },
+        { title: "The Modern Soul", category: "BRAND FILM", thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000", id: 1, videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { title: "Urban Dynamics", category: "PROMOTIONAL VIDEO", thumbnail: "https://images.unsplash.com/photo-1533750516457-a7f992034fce?auto=format&fit=crop&q=80&w=1000", id: 2, videoUrl: "" },
+        { title: "Neon Nights", category: "MUSIC VIDEO/LIVE CLIP", thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=1000", id: 3, videoUrl: "" },
+        { title: "Broadcast Special", category: "LIVE STREAMING", thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1000", id: 5, videoUrl: "" },
+        { title: "Craftsmanship", category: "BRAND FILM", thumbnail: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000", id: 4, videoUrl: "" },
+        { title: "Live Event X", category: "LIVE STREAMING", thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000", id: 6, videoUrl: "" },
       ]
-    : projects.filter(p => p.category === filter);
+    : projects.filter(p => p.category?.toUpperCase() === filter.toUpperCase());
 
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
@@ -144,7 +144,12 @@ export default function PortfolioPage() {
                 >
                   {project.category}
                 </span>
-                <h3 className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-0 sm:mb-4 leading-none">{project.title}</h3>
+                <h3 
+                  className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-0 sm:mb-4 leading-none whitespace-pre-wrap"
+                  style={project.titleFontSize ? { fontSize: project.titleFontSize } : {}}
+                >
+                  {project.title}
+                </h3>
                 {project.videoUrl && (
                   <div className="hidden sm:flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                     <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-navy hover:text-white transition-all cursor-pointer">

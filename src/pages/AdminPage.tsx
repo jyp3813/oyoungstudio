@@ -397,7 +397,7 @@ function PortfolioManager() {
           <h2 className="text-4xl font-black uppercase tracking-ultra italic">Portfolio</h2>
         </header>
         <button 
-          onClick={() => setEditing({ title: '', category: 'Brand Film', videoUrl: '', thumbnail: '', date: new Date().toISOString(), order: items.length })}
+          onClick={() => setEditing({ title: '', category: 'BRAND FILM', videoUrl: '', thumbnail: '', date: new Date().toISOString(), order: items.length })}
           className="flex items-center gap-3 px-10 py-5 bg-navy text-white text-[10px] font-black uppercase tracking-ultra rounded-full hover:bg-white hover:text-navy transition-all shadow-xl shadow-navy/20 active:scale-95"
         >
           <Plus size={16} /> New Project
@@ -416,9 +416,14 @@ function PortfolioManager() {
                  <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
                  <button onClick={() => handleDelete(item.id)} className="p-3 bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-xl"><Trash2 size={14} /></button>
                </div>
-               <div className="absolute bottom-6 left-6">
+               <div className="absolute bottom-6 left-6 right-6">
                  <span className="text-[9px] uppercase font-black tracking-ultra text-navy-accent mb-2 block italic">{item.category}</span>
-                 <h4 className="text-xl font-black uppercase tracking-tighter truncate">{item.title}</h4>
+                 <h4 
+                   className="text-xl font-black uppercase tracking-tighter whitespace-pre-wrap"
+                   style={item.titleFontSize ? { fontSize: item.titleFontSize } : {}}
+                 >
+                   {item.title}
+                 </h4>
                </div>
             </div>
             <div className="p-6 flex justify-between items-center text-[9px] uppercase font-black tracking-widest text-white/20 italic">
@@ -463,15 +468,25 @@ function PortfolioManager() {
                   }
                 }}>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Title</label>
-                    <input 
+                    <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Title (Use \n for new line)</label>
+                    <textarea 
                       required
+                      rows={2}
                       value={editing.title}
                       onChange={(e) => setEditing({...editing, title: e.target.value})}
                       className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Title Font Size (px)</label>
+                      <input 
+                        type="number"
+                        value={editing.titleFontSize ? parseInt(editing.titleFontSize) : 30}
+                        onChange={(e) => setEditing({...editing, titleFontSize: `${e.target.value}px`})}
+                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                      />
+                    </div>
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Category</label>
                       <select 
