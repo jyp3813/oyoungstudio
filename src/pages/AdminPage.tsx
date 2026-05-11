@@ -397,7 +397,7 @@ function PortfolioManager() {
           <h2 className="text-4xl font-black uppercase tracking-ultra italic">Portfolio</h2>
         </header>
         <button 
-          onClick={() => setEditing({ title: '', category: 'BRAND FILM', videoUrl: '', thumbnail: '', date: new Date().toISOString(), order: items.length })}
+          onClick={() => setEditing({ title: '', category: 'BRAND FILM', videoUrl: '', thumbnail: '', date: new Date().toISOString(), order: items.length, titleFontSize: '30px' })}
           className="flex items-center gap-3 px-10 py-5 bg-navy text-white text-[10px] font-black uppercase tracking-ultra rounded-full hover:bg-white hover:text-navy transition-all shadow-xl shadow-navy/20 active:scale-95"
         >
           <Plus size={16} /> New Project
@@ -413,7 +413,7 @@ function PortfolioManager() {
                <div className="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                  <button onClick={() => handleMove(index, 'up')} disabled={index === 0} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronUp size={14} /></button>
                  <button onClick={() => handleMove(index, 'down')} disabled={index === items.length - 1} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronDown size={14} /></button>
-                 <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
+                 <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', titleFontSize: '30px', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
                  <button onClick={() => handleDelete(item.id)} className="p-3 bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-xl"><Trash2 size={14} /></button>
                </div>
                <div className="absolute bottom-6 left-6 right-6">
@@ -461,6 +461,7 @@ function PortfolioManager() {
                     const docId = editing.id || `p-${Date.now()}`;
                     await setDoc(doc(db, 'portfolio', docId), data);
                     setEditing(null);
+                    alert('성공적으로 저장되었습니다.');
                   } catch (err) {
                     handleFirestoreError(err, OperationType.WRITE, 'portfolio');
                   } finally {

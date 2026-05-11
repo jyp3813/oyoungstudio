@@ -43,6 +43,8 @@ service cloud.firestore {
              data.thumbnail is string && data.thumbnail.size() <= 1000 &&
              (data.get('videoUrl', '') is string) &&
              (data.get('titleFontSize', '') is string) &&
+             (data.get('date', '') is timestamp || data.get('date', '') is string) &&
+             (data.get('updatedAt', request.time) is timestamp) &&
              (data.get('order', 0) is number);
     }
 
