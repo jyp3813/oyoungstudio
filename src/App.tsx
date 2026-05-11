@@ -100,7 +100,7 @@ function Navigation({ settings }: { settings?: any }) {
                 key={link.path} 
                 to={link.path}
                 className={cn(
-                  "text-[12px] uppercase tracking-[0.2em] font-black transition-all hover:text-navy-light",
+                  "text-[16px] uppercase tracking-[0.2em] font-black transition-all hover:text-navy-light",
                   location.pathname === link.path ? "text-white" : "text-white/40"
                 )}
               >

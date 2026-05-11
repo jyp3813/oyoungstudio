@@ -41,8 +41,8 @@ export default function ServicesPage() {
     <div className="pt-24 sm:pt-32 min-h-screen bg-black">
       {/* Editorial Header */}
       <section className="px-6 sm:px-10 md:px-20 mb-6 sm:mb-10 border-b border-white/10 pb-12 sm:pb-16">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 sm:gap-20 items-center">
-          <div className="flex-1">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-4xl">
              <div className="mb-4 sm:mb-6 flex items-center gap-4">
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
                 <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] text-white/40 font-black italic">Infinite Possibilities</span>
@@ -50,21 +50,9 @@ export default function ServicesPage() {
             <h1 className="text-[clamp(2.5rem,10vw,5rem)] font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12 italic uppercase whitespace-pre-wrap">
               {settings?.servicesTitle || 'OUR SERVICES'}
             </h1>
-            <p className="text-base sm:text-lg text-white/40 max-w-lg leading-relaxed font-light italic whitespace-pre-wrap">
-              {settings?.servicesDesc || `오영은 창의적인 기획부터 완성도 높은 제작까지 \n 당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다.`}
+            <p className="text-base sm:text-[22px] text-white max-w-2xl leading-relaxed font-bold italic whitespace-pre-wrap">
+              {settings?.servicesDesc || `창의적인 기획부터 완성도 높은 제작까지 \n당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다.`}
             </p>
-          </div>
-          <div className="flex-1 w-full aspect-[4/5] bg-bg-dark border border-white/10 relative overflow-hidden rounded-2xl">
-             <img 
-               src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000" 
-               className="w-full h-full object-cover grayscale opacity-20 hover:grayscale-0 hover:opacity-50 transition-all duration-1000"
-               alt="Services Overview"
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/40 to-transparent" />
-             <div className="absolute inset-x-6 sm:inset-x-10 bottom-6 sm:bottom-10 p-6 sm:p-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl">
-               <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-black text-navy-light block mb-2">Total Creative Solution</span>
-               <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/40 leading-relaxed">From initial concept to final delivery, ensuring every frame aligns with your mission.</p>
-             </div>
           </div>
         </div>
       </section>

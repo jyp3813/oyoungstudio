@@ -127,11 +127,11 @@ export default function PortfolioPage() {
               <img 
                 src={project.thumbnail} 
                 alt={project.title}
-                className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
+                className="w-full h-full object-cover opacity-70 grayscale-0 sm:opacity-30 sm:grayscale group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-1000"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
               
-              <div className="absolute bottom-0 left-0 p-4 sm:p-10 w-full translate-y-0 sm:translate-y-14 group-hover:translate-y-0 transition-all duration-700 ease-[0.22, 1, 0.36, 1]">
+              <div className="absolute bottom-0 left-0 px-6 pb-3 sm:p-10 w-full translate-y-0 sm:translate-y-14 group-hover:translate-y-0 transition-all duration-700 ease-[0.22, 1, 0.36, 1]">
                 <span 
                   onClick={(e) => {
                     if (filter === 'All') {
@@ -144,9 +144,9 @@ export default function PortfolioPage() {
                 >
                   {project.category}
                 </span>
-                <h3 className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-2 sm:mb-4 leading-none">{project.title}</h3>
+                <h3 className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-0 sm:mb-4 leading-none">{project.title}</h3>
                 {project.videoUrl && (
-                  <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                  <div className="hidden sm:flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                     <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-navy hover:text-white transition-all cursor-pointer">
                       <Play size={14} fill="currentColor" />
                     </div>
