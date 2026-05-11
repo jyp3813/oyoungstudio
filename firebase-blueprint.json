@@ -11,6 +11,7 @@
         "videoUrl": { "type": "string", "format": "uri" },
         "date": { "type": "string", "format": "date-time" },
         "order": { "type": "number" },
+        "titleFontSize": { "type": "string" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
       "required": ["title", "category", "thumbnail"]
