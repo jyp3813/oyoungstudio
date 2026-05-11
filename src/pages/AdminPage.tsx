@@ -419,7 +419,7 @@ function PortfolioManager() {
                <div className="absolute bottom-6 left-6 right-6">
                  <span className="text-[9px] uppercase font-black tracking-ultra text-navy-accent mb-2 block italic">{item.category}</span>
                  <h4 
-                   className="text-xl font-black uppercase tracking-tighter whitespace-pre-wrap"
+                   className="text-xl font-black tracking-tighter whitespace-pre-wrap"
                    style={item.titleFontSize ? { fontSize: item.titleFontSize } : {}}
                  >
                    {item.title}

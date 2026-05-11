@@ -145,7 +145,7 @@ export default function PortfolioPage() {
                   {project.category}
                 </span>
                 <h3 
-                  className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-0 sm:mb-4 leading-none whitespace-pre-wrap"
+                  className="text-xl md:text-3xl font-black tracking-tighter mb-0 sm:mb-4 leading-none whitespace-pre-wrap"
                   style={project.titleFontSize ? { fontSize: project.titleFontSize } : {}}
                 >
                   {project.title}

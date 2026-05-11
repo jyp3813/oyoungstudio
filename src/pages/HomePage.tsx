@@ -100,7 +100,7 @@ export default function HomePage() {
                   />
                 </div>
               ) : (
-                <h1 className="text-[clamp(2rem,10vw,4.5rem)] font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12 uppercase">
+                <h1 className="text-[clamp(2rem,10vw,4.5rem)] font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12">
                   {settings?.heroTitle ? renderTextWithNewLines(settings.heroTitle, '') : (
                     <>오영 <br/><span className="text-navy-light">OYOUNG</span></>
                   )}
@@ -174,7 +174,7 @@ export default function HomePage() {
               <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.4em] text-navy-accent italic mb-4 sm:mb-6 block">
                 {settings?.featuredCategory || 'Featured Film'}
               </span>
-              <h4 className="text-[clamp(2rem,10vw,5.5rem)] font-black uppercase tracking-tighter mb-8 sm:mb-12 leading-[1.1] sm:leading-[0.9]">
+              <h4 className="text-[clamp(2rem,10vw,5.5rem)] font-black tracking-tighter mb-8 sm:mb-12 leading-[1.1] sm:leading-[0.9]">
                 {settings?.featuredTitle || 'THE MODERN SOUL'}
               </h4>
               
