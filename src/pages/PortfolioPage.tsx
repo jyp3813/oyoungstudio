@@ -146,8 +146,8 @@ export default function PortfolioPage() {
                   {project.category}
                 </span>
                 <h3 
-                  className="text-lg md:text-3xl font-black tracking-tighter mb-1 sm:mb-4 leading-none whitespace-pre-wrap"
-                  style={project.titleFontSize ? { fontSize: `clamp(0.8rem, 3vw, ${project.titleFontSize})` } : {}}
+                  className="title-responsive font-black tracking-tighter mb-1 sm:mb-4 whitespace-pre-wrap"
+                  style={project.titleFontSize ? { '--custom-size': project.titleFontSize } as React.CSSProperties : {}}
                 >
                   {project.title}
                 </h3>

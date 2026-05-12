@@ -51,4 +51,15 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .title-responsive {
+    font-size: calc(var(--custom-size, 24px) * 0.65);
+    line-height: 1.1;
+  }
+  @media (min-width: 640px) {
+    .title-responsive {
+      font-size: var(--custom-size, 30px);
+      line-height: 1;
+    }
+  }
 }

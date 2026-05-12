@@ -47,7 +47,7 @@ export default function ServicesPage() {
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
                 <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] text-white/40 font-black italic">Infinite Possibilities</span>
               </div>
-            <h1 className="text-[clamp(2.5rem,10vw,5rem)] font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12 italic whitespace-pre-wrap">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12 italic whitespace-pre-wrap">
               {settings?.servicesTitle || 'OUR SERVICES'}
             </h1>
             <p className="text-base sm:text-[22px] text-white max-w-2xl leading-relaxed font-bold italic whitespace-pre-wrap">

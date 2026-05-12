@@ -420,8 +420,8 @@ function PortfolioManager() {
                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:hidden -z-10" />
                  <span className="text-[9px] uppercase font-black tracking-ultra text-navy-accent mb-2 block italic">{item.category}</span>
                  <h4 
-                   className="text-base sm:text-lg font-black tracking-tighter whitespace-pre-wrap"
-                   style={item.titleFontSize ? { fontSize: `clamp(0.75rem, 3vw, ${item.titleFontSize})` } : {}}
+                   className="title-responsive font-black tracking-tighter whitespace-pre-wrap"
+                   style={item.titleFontSize ? { '--custom-size': item.titleFontSize } as React.CSSProperties : {}}
                  >
                    {item.title}
                  </h4>
