@@ -129,9 +129,10 @@ export default function PortfolioPage() {
                 alt={project.title}
                 className="w-full h-full object-cover opacity-70 grayscale-0 sm:opacity-30 sm:grayscale group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-1000"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 sm:opacity-80" />
               
-              <div className="absolute bottom-0 left-0 px-6 pb-3 sm:p-10 w-full translate-y-0 sm:translate-y-14 group-hover:translate-y-0 transition-all duration-700 ease-[0.22, 1, 0.36, 1]">
+              <div className="absolute bottom-0 left-0 px-6 pb-6 sm:p-10 w-full translate-y-0 sm:translate-y-14 group-hover:translate-y-0 transition-all duration-700 ease-[0.22, 1, 0.36, 1] isolate">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:hidden -z-10" />
                 <span 
                   onClick={(e) => {
                     if (filter === 'All') {
@@ -145,8 +146,8 @@ export default function PortfolioPage() {
                   {project.category}
                 </span>
                 <h3 
-                  className="text-xl md:text-3xl font-black tracking-tighter mb-0 sm:mb-4 leading-none whitespace-pre-wrap"
-                  style={project.titleFontSize ? { fontSize: project.titleFontSize } : {}}
+                  className="text-lg md:text-3xl font-black tracking-tighter mb-1 sm:mb-4 leading-none whitespace-pre-wrap"
+                  style={project.titleFontSize ? { fontSize: `clamp(0.8rem, 3vw, ${project.titleFontSize})` } : {}}
                 >
                   {project.title}
                 </h3>

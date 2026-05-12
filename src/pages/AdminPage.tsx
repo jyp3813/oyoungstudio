@@ -409,18 +409,19 @@ function PortfolioManager() {
           <div key={item.id} className="bg-white/5 border border-white/5 rounded-2xl overflow-hidden group hover:border-navy/50 transition-all relative">
             <div className="aspect-video relative overflow-hidden">
                <img src={item.thumbnail} className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700" alt={item.title} />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 sm:opacity-80" />
                <div className="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                  <button onClick={() => handleMove(index, 'up')} disabled={index === 0} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronUp size={14} /></button>
                  <button onClick={() => handleMove(index, 'down')} disabled={index === items.length - 1} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronDown size={14} /></button>
                  <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', titleFontSize: '30px', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
                  <button onClick={() => handleDelete(item.id)} className="p-3 bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-xl"><Trash2 size={14} /></button>
                </div>
-               <div className="absolute bottom-6 left-6 right-6">
+               <div className="absolute bottom-6 left-6 right-6 isolate">
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:hidden -z-10" />
                  <span className="text-[9px] uppercase font-black tracking-ultra text-navy-accent mb-2 block italic">{item.category}</span>
                  <h4 
-                   className="text-xl font-black tracking-tighter whitespace-pre-wrap"
-                   style={item.titleFontSize ? { fontSize: item.titleFontSize } : {}}
+                   className="text-base sm:text-lg font-black tracking-tighter whitespace-pre-wrap"
+                   style={item.titleFontSize ? { fontSize: `clamp(0.75rem, 3vw, ${item.titleFontSize})` } : {}}
                  >
                    {item.title}
                  </h4>
