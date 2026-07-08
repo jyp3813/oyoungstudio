@@ -6,8 +6,6 @@ import { db } from '../lib/firebase';
 
 export default function ServicesPage() {
   const [settings, setSettings] = useState<any>(null);
-  
-  // 약관 팝업(모달) 상태 관리
   const [modalType, setModalType] = useState<'terms' | 'privacy' | null>(null);
 
   useEffect(() => {
@@ -17,8 +15,13 @@ export default function ServicesPage() {
     return unsub;
   }, []);
 
-  const handlePayment = (amount: number, orderName: string) => {
-    alert(`${orderName} (${amount.toLocaleString()}원) 결제창 연동 테스트 중입니다.`);
+  // 토스 링크페이 주소 연결 함수
+  const handlePayment = (orderName: string) => {
+    if (orderName === "Standard Brand Film") {
+      window.open("https://s.tosspayments.com/Bn0P4kew6Bt", "_blank");
+    } else if (orderName === "Premium Commercial Video") {
+      window.open("https://s.tosspayments.com/Bn0QBqeY2Ui", "_blank");
+    }
   };
 
   const steps = [
@@ -35,7 +38,7 @@ export default function ServicesPage() {
     {
       icon: <Zap size={24} />,
       title: "종합 편집",
-      desc: "색보정(DI), 2D/3D 그래픽, 사운 믹싱을 통해 영상의 완성도를 높이고 메시지를 더욱 강력하게 전달합니다."
+      desc: "색보정(DI), 2D/3D 그래픽, 사운드 믹싱을 통해 영상의 완성도를 높이고 메시지를 더욱 강력하게 전달합니다."
     },
     {
       icon: <TrendingUp size={24} />,
@@ -89,7 +92,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 1. 토스 심사용 서비스 및 가격 테이블 추가 */}
+      {/* 서비스 및 가격 테이블 */}
       <section className="py-12 sm:py-20 px-6 sm:px-10 md:px-20 bg-black/20">
         <div className="max-w-4xl mx-auto bg-black/40 border border-white/10 rounded-2xl p-8 sm:p-12 md:p-16 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-navy blur-[100px] opacity-10 rounded-full" />
@@ -108,11 +111,11 @@ export default function ServicesPage() {
               <div>
                 <h4 className="font-bold text-sm text-white/90">Standard Brand Film</h4>
                 <p className="text-xs text-white/40 mt-1 font-light">기획 및 구성, 1분 내외 연출 및 고감도 브랜딩 영상 편집</p>
-                <p className="text-sm font-black text-navy-light mt-2">1,100,000 원 <span className="text-[10px] font-normal text-white/30">(VAT 포함)</span></p>
+                <p className="text-sm font-black text-navy-light mt-2">990,000 원 <span className="text-[10px] font-normal text-white/30">(VAT 포함)</span></p>
               </div>
               <button 
                 type="button"
-                onClick={() => handlePayment(1100000, "Standard Brand Film")}
+                onClick={() => handlePayment("Standard Brand Film")}
                 className="px-5 py-2.5 bg-white/5 border border-white/10 hover:bg-navy hover:border-transparent text-white text-xs font-bold rounded-lg transition-all active:scale-[0.97]"
               >
                 결제하기
@@ -124,11 +127,11 @@ export default function ServicesPage() {
               <div>
                 <h4 className="font-bold text-sm text-white/90">Premium Commercial Video</h4>
                 <p className="text-xs text-white/40 mt-1 font-light">맞춤형 컨셉 브랜딩, 전문 로케이션 연출 및 시네마틱 영상 제작</p>
-                <p className="text-sm font-black text-navy-light mt-2">3,300,000 원 <span className="text-[10px] font-normal text-white/30">(VAT 포함)</span></p>
+                <p className="text-sm font-black text-navy-light mt-2">1,980,000 원 <span className="text-[10px] font-normal text-white/30">(VAT 포함)</span></p>
               </div>
               <button 
                 type="button"
-                onClick={() => handlePayment(3300000, "Premium Commercial Video")}
+                onClick={() => handlePayment("Premium Commercial Video")}
                 className="px-5 py-2.5 bg-white/5 border border-white/10 hover:bg-navy hover:border-transparent text-white text-xs font-bold rounded-lg transition-all active:scale-[0.97]"
               >
                 결제하기
@@ -136,7 +139,7 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          {/* 2. 토스 심사용 하단 필수 사업자 정보 푸터 */}
+          {/* 사업자 정보 푸터 */}
           <footer className="text-[11px] text-white/30 leading-relaxed space-y-1 pt-12 mt-12 border-t border-white/5 relative z-10">
             <p className="font-bold text-white/50 text-xs mb-2 tracking-wide uppercase">oYoung Business Info</p>
             <p>상호명: 오영스튜디오 | 대표자명: 박준영</p>
@@ -151,7 +154,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 약관 팝업 모달창 구현 */}
+      {/* 약관 팝업 모달창 */}
       <AnimatePresence>
         {modalType && (
           <motion.div 
