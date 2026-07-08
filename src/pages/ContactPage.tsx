@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
-import { Send, CheckCircle, Mail, Phone, Instagram, Youtube, CreditCard } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Send, CheckCircle, Mail, Phone, Instagram, Youtube, CreditCard, X } from 'lucide-react';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 
@@ -16,6 +16,9 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [settings, setSettings] = useState<any>(null);
 
+  // 약관 팝업(모달) 상태 관리
+  const [modalType, setModalType] = useState<'terms' | 'privacy' | null>(null);
+
   useEffect(() => {
     const unsub = onSnapshot(doc(db, 'settings', 'config'), (snap) => {
       if (snap.exists()) setSettings(snap.data());
@@ -27,13 +30,11 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Save to Firebase for Admin Panel
       await addDoc(collection(db, 'inquiries'), {
         ...form,
         createdAt: serverTimestamp()
       });
 
-      // Send to Formspree
       const response = await fetch('https://formspree.io/f/mvzldboa', {
         method: 'POST',
         headers: {
@@ -56,13 +57,12 @@ export default function ContactPage() {
     }
   };
 
-  // 토스페이먼츠 임시 결제 핸들러
   const handlePayment = (amount: number, orderName: string) => {
     alert(`${orderName} (${amount.toLocaleString()}원) 결제창 연동 테스트 중입니다.`);
   };
 
   return (
-    <div className="pt-32 sm:pt-40 min-h-screen bg-bg-dark text-white">
+    <div className="pt-32 sm:pt-40 min-h-screen bg-bg-dark text-white relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-20 grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-16 lg:gap-32 mb-24 sm:mb-40">
         <aside>
           <div className="mb-4 sm:mb-6 flex items-center gap-4">
@@ -126,7 +126,7 @@ export default function ContactPage() {
         </aside>
 
         <div className="space-y-12">
-          {/* 기존 문의 폼 섹션 */}
+          {/* 문의 폼 섹션 */}
           <section className="bg-black/40 backdrop-blur-md p-8 sm:p-12 md:p-16 border border-white/10 rounded-2xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-navy blur-[100px] opacity-10 rounded-full" />
             
@@ -263,13 +263,59 @@ export default function ContactPage() {
             <p>주소: 서울특별시 영등포구 양평로157 선유도투웨니퍼스트밸리 지하2층, B211호</p>
             <p>고객센터: {settings?.contactPhone || '010-0000-0000'} | 이메일: {settings?.contactEmail || 'contact@oyoungs.com'}</p>
             <div className="pt-3 space-x-3 text-[10px] text-white/40">
-              <a href="#/terms" className="underline hover:text-white transition-colors">이용약관</a>
-              <a href="#/privacy" className="underline hover:text-white transition-colors">개인정보처리방침</a>
+              <button type="button" onClick={() => setModalType('terms')} className="underline hover:text-white transition-colors">이용약관</button>
+              <button type="button" onClick={() => setModalType('privacy')} className="underline hover:text-white transition-colors">개인정보처리방침</button>
             </div>
           </footer>
         </div>
-
       </div>
+
+      {/* 팝업 모달 인라인 구현 (토스 심사 통과용 표준 문구) */}
+      <AnimatePresence>
+        {modalType && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 text-neutral-200 text-xs"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-neutral-900 border border-white/10 p-6 sm:p-8 rounded-2xl max-w-xl w-full max-h-[70vh] overflow-y-auto relative"
+            >
+              <button 
+                onClick={() => setModalType(null)}
+                className="absolute top-4 right-4 text-white/40 hover:text-white p-1"
+              >
+                <X size={18} />
+              </button>
+              
+              {modalType === 'terms' ? (
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">이용약관</h3>
+                  <div className="space-y-3 font-light leading-relaxed text-white/60">
+                    <p><strong>제 1 조 (목적)</strong><br />본 약관은 oYoung(오영스튜디오)이 운영하는 웹사이트에서 제공하는 영상 제작 서비스 및 관련 용역을 이용함에 있어 회사와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</p>
+                    <p><strong>제 2 조 (서비스의 제공 및 변경)</strong><br />1. 본 회사는 영상 콘텐츠 기획, 촬영, 편집 등의 용역 서비스를 제공합니다.<br />2. 모든 서비스 계약은 상호 별도 서면 계약 및 협의된 견적서를 바탕으로 개별 개시됩니다.</p>
+                    <p><strong>제 3 조 (결제 및 환불)</strong><br />1. 이용자는 회사가 제공하는 결제 수단을 통해 용역 대금을 청구 및 지불할 수 있습니다.<br />2. 영상 제작 용역의 특성상 프로젝트 착수 및 작업이 개시된 이후에는 단순 변심에 의한 환불이 불가하며, 수정 및 보완 조건은 계약서 규정에 따릅니다.</p>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">개인정보처리방침</h3>
+                  <div className="space-y-3 font-light leading-relaxed text-white/60">
+                    <p>oYoung(오영스튜디오)은 이용자의 개인정보를 소중히 다루며, 개인정보보호법 등 관련 법령을 준수합니다.</p>
+                    <p><strong>1. 수집하는 개인정보 항목</strong><br />회사는 프로젝트 문의 및 상담 접수를 위해 이름, 연락처, 이메일 주소를 필수 항목으로 수집합니다.</p>
+                    <p><strong>2. 개인정보의 수집 및 이용 목적</strong><br />수집된 개인정보는 오직 영상 제작 상담, 프로젝트 견적 제안, 계약 이행을 위한 의사소통 창구로만 활용됩니다.</p>
+                    <p><strong>3. 보유 및 이용 기간</strong><br />원칙적으로 개인정보 수집 및 이용목적이 달성된 후(문의 처리 완료 후 1년 이내) 혹은 이용자의 파기 요청이 있을 시 해당 정보를 지체 없이 파기합니다.</p>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
