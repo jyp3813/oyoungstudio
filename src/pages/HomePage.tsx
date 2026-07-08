@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
-import { Play, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { cn } from '../lib/utils';
 import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
@@ -42,7 +41,6 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-bg-dark" />
           
-          {/* Deep Blue Ethereal Background - Removed image to leave only interactive glow */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -50,7 +48,7 @@ export default function HomePage() {
             className="absolute inset-0 z-0 bg-bg-dark"
           />
 
-          {/* Interactive Mouse Glow - Enhanced for clarity and vibrancy */}
+          {/* Interactive Mouse Glow */}
           <motion.div 
             className="absolute w-[1200px] h-[1200px] bg-navy-accent/20 blur-[180px] rounded-full pointer-events-none hidden md:block mix-blend-screen"
             animate={{
@@ -123,8 +121,6 @@ export default function HomePage() {
             </motion.div>
           </div>
         </div>
- 
-
       </section>
  
       {/* Intro Section - Vertical Layout with Softer Accents */}
@@ -152,63 +148,6 @@ export default function HomePage() {
              </Link>
           </div>
         </div>
-      </section>
-
-      {/* Featured Works Section - Single Cinematic Layout */}
-      <section className="bg-bg-dark">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="group relative h-[60vh] sm:h-[70vh] md:h-[80vh] overflow-hidden border-b border-white/10"
-        >
-          <img 
-            src={settings?.featuredImageUrl || "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2000"} 
-            className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000 scale-110 group-hover:scale-100"
-            alt={settings?.featuredTitle || "Featured Work"}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-dark via-transparent to-transparent opacity-90" />
-          
-          <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 md:p-20">
-            <div className="max-w-4xl">
-              <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.4em] text-navy-accent italic mb-4 sm:mb-6 block">
-                {settings?.featuredCategory || 'Featured Film'}
-              </span>
-              <h4 className="text-3xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-8 sm:mb-12 leading-[1.1] sm:leading-[0.9]">
-                {settings?.featuredTitle || 'THE MODERN SOUL'}
-              </h4>
-              
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-6 sm:gap-10">
-                <button 
-                  onClick={() => settings?.featuredVideoUrl && window.open(settings.featuredVideoUrl, '_blank')}
-                  className="w-full sm:w-auto flex items-center gap-4 sm:gap-6 group/btn cursor-pointer bg-white/5 backdrop-blur-xl border border-white/10 px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-white hover:text-black transition-all duration-500"
-                >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-current flex items-center justify-center">
-                    <Play size={14} fill="currentColor" />
-                  </div>
-                  <div className="flex flex-col items-start pr-4">
-                    <span className="text-[9px] sm:text-[10px] uppercase font-black tracking-ultra">Watch Featured Film</span>
-                    <span className="text-[7px] sm:text-[8px] uppercase font-bold tracking-widest opacity-40">Immersion Experience</span>
-                  </div>
-                </button>
-                
-                <Link 
-                  to="/portfolio" 
-                  className="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-white/40 hover:text-white transition-colors flex items-center gap-4 group/all"
-                >
-                  OUR PORTFOLIO 
-                  <ArrowRight size={14} className="group-hover/all:translate-x-2 transition-transform" />
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Side Label */}
-          <div className="absolute top-1/2 right-10 -translate-y-1/2 hidden lg:flex items-center gap-6 rotate-90 origin-right">
-            <div className="w-12 h-[1px] bg-white/10"></div>
-            <span className="text-[9px] uppercase font-black tracking-ultra text-white/20 italic whitespace-nowrap">Cinematic Portfolio Peak</span>
-          </div>
-        </motion.div>
       </section>
 
       {/* Final CTA */}
