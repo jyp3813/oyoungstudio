@@ -190,7 +190,6 @@ function Navigation({ settings }: { settings?: any }) {
 
 export default function App() {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
@@ -216,26 +215,12 @@ export default function App() {
       } else {
         setIsAdmin(false);
       }
-      setLoading(false);
     });
     return () => {
       unsubAuth();
       unsubSettings();
     };
   }, []);
-
-  if (loading) {
-    return (
-      <div className="h-screen w-full bg-black flex items-center justify-center">
-        <motion.div 
-          animate={{ opacity: [0.4, 1, 0.4] }} 
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
-          <Logo settings={settings} className="text-3xl sm:text-5xl" />
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <Router>
