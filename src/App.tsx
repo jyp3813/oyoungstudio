@@ -3,11 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -29,7 +24,7 @@ function Footer({ settings }: { settings?: any }) {
   return (
     <footer className="relative z-10 px-6 sm:px-10 py-10 border-t border-white/10 bg-black/50 flex flex-col sm:flex-row items-center justify-between text-[9px] uppercase tracking-[0.2em] text-white/30 gap-6">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center sm:items-start text-center sm:text-left">
-        <span>Copyright © 2026 {settings?.siteName?.toUpperCase() || 'OYOUNG STUDIO'}. ALL RIGHTS RESERVED.</span>
+        <span>Copyright © 2026 {settings?.siteName?.toUpperCase() || 'OYOUNG'}. ALL RIGHTS RESERVED.</span>
         <span className="opacity-50 sm:border-l sm:border-white/10 sm:pl-8">Seoul, Korea</span>
       </div>
       <div className="flex items-center gap-6 sm:gap-8">
