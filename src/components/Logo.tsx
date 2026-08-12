@@ -6,7 +6,7 @@ interface LogoProps {
 }
 
 export function Logo({ settings, className }: LogoProps) {
-  const siteName = settings?.siteName || 'OYOUNG STUDIO';
+  const siteName = settings?.siteName || 'oYoung';
   
   if (settings?.logoUrl && settings.logoType === 'image') {
     return (
