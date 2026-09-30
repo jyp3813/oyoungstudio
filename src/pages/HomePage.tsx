@@ -88,9 +88,9 @@ export default function HomePage() {
               </div>
               
               {/* 미팅용 임시 고정: 이미지 타이틀 설정을 무시하고 무조건 텍스트로 노출합니다 */}
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
-                <span className="text-center">JINI. J MEDIA</span> 
-                <span className="text-white/30 font-light text-2xl md:text-4xl mx-2 md:mx-0">x</span> 
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
+                <span className="text-center">JINI. J</span> 
+                <span className="text-white/30 font-light text-3xl md:text-5xl mx-2 md:mx-0">x</span> 
                 <span className="text-navy-light">OYOUNG</span>
               </h1>
               
@@ -130,7 +130,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center space-y-6 sm:space-y-8">
              <p className="text-base sm:text-xl text-white leading-relaxed font-light max-w-2xl">
                {settings?.purposeDesc ? renderTextWithNewLines(settings.purposeDesc, '') : (
-                 <>JINI. J MEDIA와 oYoung은 창의적인 기획부터 완성도 높은 제작까지, 당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다. <br className="hidden sm:block" />우리는 단순한 영상을 넘어 브랜드의 본질을 가장 혁신적인 방식으로 시각화합니다.</>
+                 <>JINI. J와 oYoung은 창의적인 기획부터 완성도 높은 제작까지, 당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다. <br className="hidden sm:block" />우리는 단순한 영상을 넘어 브랜드의 본질을 가장 혁신적인 방식으로 시각화합니다.</>
                )}
              </p>
              <Link to="/services" className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-navy-light border-b border-navy-light/30 pb-1 w-fit hover:text-white transition-colors">
