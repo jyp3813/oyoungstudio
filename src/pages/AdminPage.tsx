@@ -309,7 +309,8 @@ function PortfolioManager() {
   const [editing, setEditing] = useState<any>(null);
   const [saving, setSaving] = useState(false);
   
-  // 영구 개선: 카테고리 순서 맞춤
+  // 영구 개선: 관리자 화면에도 필터 추가
+  const [filter, setFilter] = useState('All');
   const categories = ['BRAND FILM', 'PROMOTIONAL VIDEO', 'MUSIC VIDEO/LIVE CLIP', 'INTERVIEW', 'YOUTUBE/SNS', 'LIVE STREAMING'];
 
   const toSafeDate = (val: any) => {
@@ -354,23 +355,27 @@ function PortfolioManager() {
     });
   }, []);
 
+  // 선택된 카테고리에 맞는 항목들만 필터링
+  const displayedItems = filter === 'All' 
+    ? items 
+    : items.filter(item => item.category === filter);
+
+  // 현재 필터링된 배열(displayedItems)을 기준으로 순서를 변경
   const handleMove = async (index: number, direction: 'up' | 'down') => {
     const targetIndex = direction === 'up' ? index - 1 : index + 1;
-    if (targetIndex < 0 || targetIndex >= items.length) return;
+    if (targetIndex < 0 || targetIndex >= displayedItems.length) return;
 
-    const currentItem = items[index];
-    const targetItem = items[targetIndex];
+    const currentItem = displayedItems[index];
+    const targetItem = displayedItems[targetIndex];
 
-    const currentOrder = currentItem.order ?? index;
-    const targetOrder = targetItem.order ?? targetIndex;
-
-    const newCurrentOrder = direction === 'up' ? targetOrder - 1 : targetOrder + 1;
+    // 기존 배열에서의 위치(index)를 기본값으로 가져와서 교환
+    const currentOrder = currentItem.order ?? items.indexOf(currentItem);
+    const targetOrder = targetItem.order ?? items.indexOf(targetItem);
     
     try {
-      await setDoc(doc(db, 'portfolio', currentItem.id), { ...currentItem, order: newCurrentOrder }, { merge: true });
-      if (typeof targetItem.order === 'undefined') {
-        await setDoc(doc(db, 'portfolio', targetItem.id), { ...targetItem, order: currentOrder }, { merge: true });
-      }
+      // 서로의 Order 값을 직접 맞바꿈
+      await setDoc(doc(db, 'portfolio', currentItem.id), { ...currentItem, order: targetOrder }, { merge: true });
+      await setDoc(doc(db, 'portfolio', targetItem.id), { ...targetItem, order: currentOrder }, { merge: true });
     } catch (err) {
       handleFirestoreError(err, OperationType.WRITE, 'portfolio');
     }
@@ -404,15 +409,33 @@ function PortfolioManager() {
         </button>
       </div>
 
+      {/* 영구 개선: 관리자 화면용 필터 UI 추가 */}
+      <div className="flex flex-wrap gap-2 sm:gap-3 mb-8">
+        {['All', ...categories].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setFilter(cat)}
+            className={cn(
+              "px-5 py-2.5 text-[9px] uppercase tracking-widest font-black rounded-full transition-all border",
+              filter === cat 
+                ? "bg-navy text-white border-navy shadow-lg shadow-navy/20" 
+                : "bg-transparent text-white/40 border-white/10 hover:border-white/30 hover:text-white"
+            )}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        {items.map((item, index) => (
+        {displayedItems.map((item, index) => (
           <div key={item.id} className="bg-white/5 border border-white/5 rounded-2xl overflow-hidden group hover:border-navy/50 transition-all relative">
             <div className="aspect-video relative overflow-hidden">
                <img src={item.thumbnail} className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700" alt={item.title} />
                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 sm:opacity-80" />
                <div className="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                  <button onClick={() => handleMove(index, 'up')} disabled={index === 0} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronUp size={14} /></button>
-                 <button onClick={() => handleMove(index, 'down')} disabled={index === items.length - 1} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronDown size={14} /></button>
+                 <button onClick={() => handleMove(index, 'down')} disabled={index === displayedItems.length - 1} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronDown size={14} /></button>
                  <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', titleFontSize: '30px', role: '', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
                  <button onClick={() => handleDelete(item.id)} className="p-3 bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-xl"><Trash2 size={14} /></button>
                </div>
@@ -428,11 +451,16 @@ function PortfolioManager() {
                </div>
             </div>
             <div className="p-6 flex justify-between items-center text-[9px] uppercase font-black tracking-widest text-white/20 italic">
-               <span>Order: {item.order ?? index} | Last update: {item.date ? formatDate(item.date) : 'N/A'}</span>
+               <span>Order: {item.order ?? items.indexOf(item)} | Last update: {item.date ? formatDate(item.date) : 'N/A'}</span>
                <div className="w-1.5 h-1.5 rounded-full bg-green-500/40"></div>
             </div>
           </div>
         ))}
+        {displayedItems.length === 0 && (
+          <div className="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-3xl bg-white/[0.02]">
+             <p className="text-white/20 text-[10px] uppercase font-black tracking-ultra italic">해당 카테고리에 등록된 프로젝트가 없습니다.</p>
+          </div>
+        )}
       </div>
 
       <AnimatePresence>
@@ -501,7 +529,6 @@ function PortfolioManager() {
                         ))}
                       </select>
                     </div>
-                    {/* 영구 개선: Role (참여 파트) 항목 폼 추가 */}
                     <div className="space-y-2 sm:col-span-2">
                       <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Role (참여 파트, 선택사항)</label>
                       <input 
