@@ -84,7 +84,7 @@ export default function HomePage() {
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
               </div>
               
-              {/* 메인 타이틀: JINI. J (붉은색) x OYOUNG (파란색) */}
+              {/* 메인 타이틀: OYOUNG (파란색) x JINI. J (붉은색) */}
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
                 <span className="text-center drop-shadow-lg" style={{ color: '#A63325' }}>JINI. J</span> 
                 <span className="text-white/30 font-light text-3xl md:text-5xl mx-2 md:mx-0">x</span> 
