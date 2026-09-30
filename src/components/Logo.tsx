@@ -6,15 +6,34 @@ interface LogoProps {
 }
 
 export function Logo({ settings, className }: LogoProps) {
-  // 미팅용 임시 고정: 기존 등록된 이미지 로고를 무시하고 텍스트로만 출력합니다.
   return (
-    <div className={cn("font-black tracking-[0.1em] uppercase text-white flex items-center gap-2", className)}>
-      <span className="w-2 h-2 bg-navy-accent rounded-full hidden sm:block"></span>
-      <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm">
-        <span>JINI. J MEDIA</span>
-        <span className="text-white/30 font-light text-[9px] sm:text-[10px]">x</span>
-        <span>OYOUNG</span>
-      </div>
+    <div className={cn("flex items-center gap-3 sm:gap-4", className)}>
+      
+      {/* 1. 지니제이 로고 이미지 (public 폴더의 파일) */}
+      <img 
+        src="/jinij-logo.png" 
+        alt="JINI.J" 
+        className="h-5 sm:h-7 w-auto object-contain" 
+      />
+
+      {/* 2. 중앙 크로스(x) 마크 */}
+      <span className="text-white/30 font-light text-[10px] sm:text-xs">x</span>
+
+      {/* 3. 오영 로고 이미지 (관리자 페이지에 등록된 이미지 불러오기) */}
+      {settings?.logoUrl && settings.logoType === 'image' ? (
+        <img 
+          src={settings.logoUrl} 
+          alt="oYoung" 
+          className="h-5 sm:h-7 w-auto object-contain" 
+          referrerPolicy="no-referrer"
+        />
+      ) : (
+        /* 만약 오영 이미지 로고가 안 뜰 경우를 대비한 예비 텍스트 */
+        <span className="font-black tracking-[0.1em] uppercase text-white text-[11px] sm:text-sm">
+          OYOUNG
+        </span>
+      )}
+
     </div>
   );
 }
