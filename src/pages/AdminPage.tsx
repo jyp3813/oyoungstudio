@@ -115,14 +115,13 @@ export default function AdminPage({ isAdmin }: AdminPageProps) {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-bg-dark pt-16 lg:pt-20">
-      {/* Sidebar / Mobile Nav */}
       <aside className="w-full lg:w-72 border-b lg:border-r lg:border-b-0 border-white/5 flex flex-col bg-black/40 backdrop-blur-md overflow-y-auto lg:h-full max-h-[40vh] lg:max-h-none shrink-0">
         <header className="p-6 lg:p-10 border-b border-white/5 bg-gradient-to-br from-navy/10 to-transparent hidden lg:block">
            <div className="flex items-center gap-4 mb-4">
               <Logo settings={settings} className="text-[14px]" />
            </div>
            <p className="text-white/20 text-[9px] uppercase tracking-widest font-bold leading-relaxed px-1">
-             Management Core v2.8.0
+              Management Core v2.8.0
            </p>
         </header>
 
@@ -189,7 +188,6 @@ export default function AdminPage({ isAdmin }: AdminPageProps) {
         </div>
       </aside>
 
-      {/* Content Area */}
       <main className="flex-1 overflow-y-auto bg-black/20 p-6 sm:p-10 lg:p-16">
         <header className="mb-8 lg:mb-16 border-b border-white/5 pb-8 lg:pb-12 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 sm:gap-0">
            <div>
@@ -310,7 +308,9 @@ function PortfolioManager() {
   const [items, setItems] = useState<any[]>([]);
   const [editing, setEditing] = useState<any>(null);
   const [saving, setSaving] = useState(false);
-  const categories = ['BRAND FILM', 'MUSIC VIDEO/LIVE CLIP', 'INTERVIEW', 'PROMOTIONAL VIDEO', 'YOUTUBE/SNS', 'LIVE STREAMING'];
+  
+  // 영구 개선: 카테고리 순서 맞춤
+  const categories = ['BRAND FILM', 'PROMOTIONAL VIDEO', 'MUSIC VIDEO/LIVE CLIP', 'INTERVIEW', 'YOUTUBE/SNS', 'LIVE STREAMING'];
 
   const toSafeDate = (val: any) => {
     try {
@@ -397,7 +397,7 @@ function PortfolioManager() {
           <h2 className="text-4xl font-black uppercase tracking-ultra italic">Portfolio</h2>
         </header>
         <button 
-          onClick={() => setEditing({ title: '', category: 'BRAND FILM', videoUrl: '', thumbnail: '', date: new Date().toISOString(), order: items.length, titleFontSize: '30px' })}
+          onClick={() => setEditing({ title: '', category: 'BRAND FILM', videoUrl: '', thumbnail: '', role: '', date: new Date().toISOString(), order: items.length, titleFontSize: '30px' })}
           className="flex items-center gap-3 px-10 py-5 bg-navy text-white text-[10px] font-black uppercase tracking-ultra rounded-full hover:bg-white hover:text-navy transition-all shadow-xl shadow-navy/20 active:scale-95"
         >
           <Plus size={16} /> New Project
@@ -413,7 +413,7 @@ function PortfolioManager() {
                <div className="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                  <button onClick={() => handleMove(index, 'up')} disabled={index === 0} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronUp size={14} /></button>
                  <button onClick={() => handleMove(index, 'down')} disabled={index === items.length - 1} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"><ChevronDown size={14} /></button>
-                 <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', titleFontSize: '30px', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
+                 <button onClick={() => setEditing({ videoUrl: '', thumbnail: '', titleFontSize: '30px', role: '', ...item })} className="p-3 bg-white text-black rounded-full hover:bg-navy hover:text-white transition-all shadow-xl"><Edit size={14} /></button>
                  <button onClick={() => handleDelete(item.id)} className="p-3 bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-xl"><Trash2 size={14} /></button>
                </div>
                <div className="absolute bottom-6 left-6 right-6 isolate">
@@ -476,7 +476,7 @@ function PortfolioManager() {
                       rows={2}
                       value={editing.title}
                       onChange={(e) => setEditing({...editing, title: e.target.value})}
-                      className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                      className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
@@ -486,7 +486,7 @@ function PortfolioManager() {
                         type="number"
                         value={editing.titleFontSize ? parseInt(editing.titleFontSize) : 30}
                         onChange={(e) => setEditing({...editing, titleFontSize: `${e.target.value}px`})}
-                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                       />
                     </div>
                     <div className="space-y-2">
@@ -494,12 +494,22 @@ function PortfolioManager() {
                       <select 
                         value={editing.category}
                         onChange={(e) => setEditing({...editing, category: e.target.value})}
-                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                       >
                         {categories.map(cat => (
                           <option key={cat} value={cat}>{cat}</option>
                         ))}
                       </select>
+                    </div>
+                    {/* 영구 개선: Role (참여 파트) 항목 폼 추가 */}
+                    <div className="space-y-2 sm:col-span-2">
+                      <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Role (참여 파트, 선택사항)</label>
+                      <input 
+                         value={editing.role || ''}
+                         onChange={(e) => setEditing({...editing, role: e.target.value})}
+                         placeholder="e.g. 기획, 촬영, 색보정"
+                         className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
+                      />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase font-bold tracking-widest text-white/30">Release Date</label>
@@ -507,7 +517,7 @@ function PortfolioManager() {
                          type="date"
                          value={toInputDate(editing.date)}
                          onChange={(e) => setEditing({...editing, date: e.target.value})}
-                         className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                         className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                       />
                     </div>
                     <div className="space-y-2">
@@ -516,7 +526,7 @@ function PortfolioManager() {
                            type="number"
                            value={editing.order ?? 0}
                            onChange={(e) => setEditing({...editing, order: parseInt(e.target.value) || 0})}
-                           className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                           className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                         />
                     </div>
                   </div>
@@ -527,7 +537,7 @@ function PortfolioManager() {
                         value={editing.thumbnail || ''}
                         onChange={(e) => setEditing({...editing, thumbnail: e.target.value})}
                         placeholder="https://images.unsplash.com/..."
-                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                       />
                     </div>
                     <div className="space-y-2">
@@ -536,12 +546,12 @@ function PortfolioManager() {
                         value={editing.videoUrl || ''}
                         onChange={(e) => setEditing({...editing, videoUrl: e.target.value})}
                         placeholder="https://youtube.com/watch?v=..."
-                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy"
+                        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 focus:outline-none focus:border-navy text-white"
                       />
                     </div>
                   </div>
                   <div className="flex justify-end gap-4 pt-8">
-                    <button type="button" onClick={() => setEditing(null)} className="px-8 py-4 text-[10px] uppercase font-bold tracking-widest">Cancel</button>
+                    <button type="button" onClick={() => setEditing(null)} className="px-8 py-4 text-[10px] uppercase font-bold tracking-widest text-white">Cancel</button>
                     <button 
                       type="submit" 
                       disabled={saving}
