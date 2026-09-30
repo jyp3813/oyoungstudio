@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, Filter, Plus } from 'lucide-react';
+import { Play, Plus } from 'lucide-react';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 export default function PortfolioPage() {
   const [projects, setProjects] = useState<any[]>([]);
-  const [filter, setFilter] = useState('All');
+  // 영구 개선: ALL WORKS가 없어졌으므로 첫 화면을 BRAND FILM으로 고정
+  const [filter, setFilter] = useState('BRAND FILM');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,18 +28,21 @@ export default function PortfolioPage() {
     return unsub;
   }, []);
 
-  const categories = ['All', 'BRAND FILM', 'MUSIC VIDEO/LIVE CLIP', 'INTERVIEW', 'PROMOTIONAL VIDEO', 'YOUTUBE/SNS', 'LIVE STREAMING'];
+  // 영구 개선: All Works 삭제 및 순서 변경 (BRAND FILM -> PROMOTIONAL VIDEO -> ...)
+  const categories = ['BRAND FILM', 'PROMOTIONAL VIDEO', 'MUSIC VIDEO/LIVE CLIP', 'INTERVIEW', 'YOUTUBE/SNS', 'LIVE STREAMING'];
 
-  const filteredProjects = filter === 'All' 
-    ? projects.length > 0 ? projects : [
-        { title: "The Modern Soul", category: "BRAND FILM", thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000", id: 1, videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { title: "Urban Dynamics", category: "PROMOTIONAL VIDEO", thumbnail: "https://images.unsplash.com/photo-1533750516457-a7f992034fce?auto=format&fit=crop&q=80&w=1000", id: 2, videoUrl: "" },
-        { title: "Neon Nights", category: "MUSIC VIDEO/LIVE CLIP", thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=1000", id: 3, videoUrl: "" },
-        { title: "Broadcast Special", category: "LIVE STREAMING", thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1000", id: 5, videoUrl: "" },
-        { title: "Craftsmanship", category: "BRAND FILM", thumbnail: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000", id: 4, videoUrl: "" },
-        { title: "Live Event X", category: "LIVE STREAMING", thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000", id: 6, videoUrl: "" },
-      ]
-    : projects.filter(p => p.category?.toUpperCase() === filter.toUpperCase());
+  const dummyProjects = [
+    { title: "The Modern Soul", category: "BRAND FILM", thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=1000", id: 1, videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+    { title: "Urban Dynamics", category: "PROMOTIONAL VIDEO", thumbnail: "https://images.unsplash.com/photo-1533750516457-a7f992034fce?auto=format&fit=crop&q=80&w=1000", id: 2, videoUrl: "" },
+    { title: "Neon Nights", category: "MUSIC VIDEO/LIVE CLIP", thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=1000", id: 3, videoUrl: "" },
+    { title: "Broadcast Special", category: "LIVE STREAMING", thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1000", id: 5, videoUrl: "" },
+    { title: "Craftsmanship", category: "BRAND FILM", thumbnail: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000", id: 4, videoUrl: "" },
+    { title: "Live Event X", category: "LIVE STREAMING", thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1000", id: 6, videoUrl: "" },
+  ];
+
+  const filteredProjects = projects.length > 0 
+    ? projects.filter(p => p.category?.toUpperCase() === filter.toUpperCase())
+    : dummyProjects.filter(p => p.category?.toUpperCase() === filter.toUpperCase());
 
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
@@ -59,7 +63,6 @@ export default function PortfolioPage() {
 
       return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : null;
     } catch {
-      // Fallback for non-standard formats
       if (url.includes('v=')) return `https://www.youtube.com/embed/${url.split('v=')[1].split('&')[0]}?autoplay=1`;
       return null;
     }
@@ -85,21 +88,9 @@ export default function PortfolioPage() {
             Portfolio
           </motion.h1>
           
-          <div className="flex flex-col gap-6 pt-4 sm:pt-8 bg-bg">
-            <div className="flex items-center gap-4">
-              <Filter size={14} className="text-navy-accent shrink-0" />
-              <button
-                onClick={() => setFilter('All')}
-                className={`text-[10px] sm:text-[12px] uppercase tracking-[0.3em] font-black px-8 sm:px-16 py-2 sm:py-2.5 rounded-full border transition-all active:scale-95 ${
-                  filter === 'All' ? "bg-navy text-white border-transparent shadow-2xl shadow-navy/40" : "text-white/40 border-white/5 hover:bg-navy-accent/10 hover:border-navy-accent/50 hover:text-white"
-                }`}
-              >
-                All Works
-              </button>
-            </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-              {categories.filter(cat => cat !== 'All').map((cat) => (
+          <div className="flex flex-col pt-4 sm:pt-8 bg-bg-dark">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-4">
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
@@ -133,26 +124,24 @@ export default function PortfolioPage() {
               
               <div className="absolute bottom-0 left-0 px-6 pb-6 sm:p-10 w-full translate-y-0 sm:translate-y-14 group-hover:translate-y-0 transition-all duration-700 ease-[0.22, 1, 0.36, 1] isolate">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent sm:hidden -z-10" />
-                <span 
-                  onClick={(e) => {
-                    if (filter === 'All') {
-                      e.stopPropagation();
-                      setFilter(project.category);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                  }}
-                  className="text-[8px] uppercase tracking-[0.3em] font-black text-navy mb-1 sm:mb-2 block italic hover:text-white transition-colors"
-                >
+                <span className="text-[8px] uppercase tracking-[0.3em] font-black text-navy mb-1 sm:mb-2 block italic hover:text-white transition-colors break-keep">
                   {project.category}
                 </span>
                 <h3 
-                  className="title-responsive font-black tracking-tighter mb-1 sm:mb-4 whitespace-pre-wrap"
+                  className="title-responsive font-black tracking-tighter mb-1 sm:mb-2 whitespace-pre-wrap break-keep"
                   style={project.titleFontSize ? { '--custom-size': project.titleFontSize } as React.CSSProperties : {}}
                 >
                   {project.title}
                 </h3>
+                {/* 영구 개선: 참여 파트(Role) 정보 노출 */}
+                {project.role && (
+                  <p className="text-[10px] sm:text-xs text-white/50 mb-3 font-light tracking-wide break-keep">
+                    Role : {project.role}
+                  </p>
+                )}
+                
                 {project.videoUrl && (
-                  <div className="hidden sm:flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                  <div className="hidden sm:flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 mt-2">
                     <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-navy hover:text-white transition-all cursor-pointer">
                       <Play size={14} fill="currentColor" />
                     </div>
@@ -164,6 +153,11 @@ export default function PortfolioPage() {
               </div>
             </motion.div>
           ))}
+          {filteredProjects.length === 0 && (
+            <div className="col-span-1 md:col-span-2 py-20 text-center text-white/30 italic text-sm">
+              등록된 포트폴리오가 없습니다.
+            </div>
+          )}
         </div>
       </div>
 
