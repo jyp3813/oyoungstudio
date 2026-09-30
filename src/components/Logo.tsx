@@ -6,24 +6,13 @@ interface LogoProps {
 }
 
 export function Logo({ settings, className }: LogoProps) {
-  // 관리자 페이지에서 로고 이미지를 설정한 경우
-  if (settings?.logoUrl && settings.logoType === 'image') {
-    return (
-      <img 
-        src={settings.logoUrl} 
-        alt="Jini.J x oYoung" 
-        className={cn("h-8 w-auto object-contain", className)} 
-        referrerPolicy="no-referrer"
-      />
-    );
-  }
-
+  // 미팅용 임시 고정: 기존 등록된 이미지 로고를 무시하고 텍스트로만 출력합니다.
   return (
-    <div className={cn("font-black tracking-[0.15em] uppercase text-white flex items-center gap-2", className)}>
+    <div className={cn("font-black tracking-[0.1em] uppercase text-white flex items-center gap-2", className)}>
       <span className="w-2 h-2 bg-navy-accent rounded-full hidden sm:block"></span>
-      <div className="flex items-center gap-2 text-sm sm:text-base">
-        <span>JINI.J</span>
-        <span className="text-white/30 font-light text-[10px] sm:text-xs">x</span>
+      <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm">
+        <span>JINI. J MEDIA</span>
+        <span className="text-white/30 font-light text-[9px] sm:text-[10px]">x</span>
         <span>OYOUNG</span>
       </div>
     </div>
