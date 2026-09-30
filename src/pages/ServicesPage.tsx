@@ -39,7 +39,6 @@ export default function ServicesPage() {
 
   return (
     <div className="pt-24 sm:pt-32 min-h-screen bg-black text-white relative">
-      {/* Editorial Header */}
       <section className="px-6 sm:px-10 md:px-20 mb-6 sm:mb-10 border-b border-white/10 pb-12 sm:pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-4xl">
@@ -47,17 +46,17 @@ export default function ServicesPage() {
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
                 <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] text-white/40 font-black italic">Infinite Possibilities</span>
               </div>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12 italic whitespace-pre-wrap">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12 italic whitespace-pre-wrap break-keep">
               {settings?.servicesTitle || 'OUR SERVICES'}
             </h1>
-            <p className="text-base sm:text-[22px] text-white max-w-2xl leading-relaxed font-bold italic whitespace-pre-wrap">
+            {/* 영구 개선: 모바일 텍스트 끊김 방지(break-keep) */}
+            <p className="text-base sm:text-[22px] text-white max-w-2xl leading-relaxed font-bold italic whitespace-pre-wrap break-keep">
               {settings?.servicesDesc || `창의적인 기획부터 완성도 높은 제작까지 \n당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다.`}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Steps Section */}
       <section className="py-12 sm:py-20 px-6 sm:px-10 md:px-20 bg-black/40">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
@@ -73,7 +72,8 @@ export default function ServicesPage() {
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-navy-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 <div className="text-navy-accent mb-10 group-hover:scale-110 transition-transform">{step.icon}</div>
                 <h3 className="text-2xl font-black uppercase tracking-tighter mb-6">{step.title}</h3>
-                <p className="text-xs text-white/30 leading-relaxed group-hover:text-white/60 transition-colors font-bold uppercase tracking-widest">
+                {/* 영구 개선: 모바일 텍스트 끊김 방지(break-keep) */}
+                <p className="text-xs text-white/30 leading-relaxed group-hover:text-white/60 transition-colors font-bold uppercase tracking-widest break-keep">
                   {step.desc}
                 </p>
               </motion.div>
