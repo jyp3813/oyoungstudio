@@ -86,6 +86,7 @@ export default function HomePage() {
                 </span>
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
               </div>
+              
               {settings?.heroTitleType === 'image' && settings?.heroTitleUrl ? (
                 <div className="mb-8 sm:mb-12">
                   <motion.img 
@@ -98,12 +99,17 @@ export default function HomePage() {
                   />
                 </div>
               ) : (
-                <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-[0.9] sm:leading-[0.85] tracking-ultra mb-8 sm:mb-12">
+                <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
                   {settings?.heroTitle ? renderTextWithNewLines(settings.heroTitle, '') : (
-                    <>오영 <br/><span className="text-navy-light">OYOUNG</span></>
+                    <>
+                      <span>JINI.J</span> 
+                      <span className="text-white/30 font-light text-3xl md:text-5xl mx-2 md:mx-0">x</span> 
+                      <span className="text-navy-light">OYOUNG</span>
+                    </>
                   )}
                 </h1>
               )}
+              
               <p className="text-base sm:text-lg text-white/40 max-w-lg mx-auto leading-relaxed font-light italic mb-8 sm:mb-12">
                 {settings?.heroDesc ? renderTextWithNewLines(settings.heroDesc, '') : (
                   <>세계를 무대로 하는 영상 제작 및 서비스 솔루션. <br className="hidden sm:block" />우리는 당신의 가치를 가장 혁신적인 방식으로 시각화합니다.</>
@@ -123,7 +129,7 @@ export default function HomePage() {
         </div>
       </section>
  
-      {/* Intro Section - Vertical Layout with Softer Accents */}
+      {/* Intro Section */}
       <section className="py-24 sm:py-40 px-6 sm:px-10 md:px-20 flex flex-col items-center text-center border-b border-white/5 bg-white/[0.02]">
         <div className="max-w-4xl">
           <h2 className="text-[9px] sm:text-[11px] uppercase tracking-[0.4em] text-white font-bold mb-6 sm:mb-10">Our Purpose</h2>
@@ -140,7 +146,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center space-y-6 sm:space-y-8">
              <p className="text-base sm:text-xl text-white leading-relaxed font-light max-w-2xl">
                {settings?.purposeDesc ? renderTextWithNewLines(settings.purposeDesc, '') : (
-                 <>오영(oYoung)은 창의적인 기획부터 완성도 높은 제작까지, 당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다. <br className="hidden sm:block" />우리는 단순한 영상을 넘어 브랜드의 본질을 가장 혁신적인 방식으로 시각화합니다.</>
+                 <>Jini.J와 oYoung은 창의적인 기획부터 완성도 높은 제작까지, 당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다. <br className="hidden sm:block" />우리는 단순한 영상을 넘어 브랜드의 본질을 가장 혁신적인 방식으로 시각화합니다.</>
                )}
              </p>
              <Link to="/services" className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-navy-light border-b border-navy-light/30 pb-1 w-fit hover:text-white transition-colors">
