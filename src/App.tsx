@@ -72,10 +72,11 @@ function Navigation({ settings }: { settings?: any }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 영구 개선: 포트폴리오가 서비스보다 먼저 오도록 순서 변경
   const navLinks = [
     { name: '홈', path: '/' },
-    { name: '서비스', path: '/services' },
     { name: '포트폴리오', path: '/portfolio' },
+    { name: '서비스', path: '/services' },
     { name: '문의하기', path: '/contact' },
   ];
 
@@ -118,7 +119,6 @@ function Navigation({ settings }: { settings?: any }) {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -220,7 +220,6 @@ export default function App() {
   return (
     <Router>
       <div className="min-h-screen bg-bg-dark overflow-x-hidden relative">
-        {/* Background Patterns & Accents */}
         <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.1] bg-noise"></div>
         <div className="fixed inset-0 z-0 pointer-events-none bg-grid opacity-20"></div>
         
