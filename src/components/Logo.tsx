@@ -9,17 +9,7 @@ export function Logo({ settings, className }: LogoProps) {
   return (
     <div className={cn("flex items-center gap-3 sm:gap-4", className)}>
       
-      {/* 1. 지니제이 로고 이미지 (public 폴더의 파일) */}
-      <img 
-        src="/jinij-logo.png" 
-        alt="JINI.J" 
-        className="h-5 sm:h-7 w-auto object-contain" 
-      />
-
-      {/* 2. 중앙 크로스(x) 마크 */}
-      <span className="text-white/30 font-light text-[10px] sm:text-xs">x</span>
-
-      {/* 3. 오영 로고 이미지 (관리자 페이지에 등록된 이미지 불러오기) */}
+      {/* 1. 오영 로고 이미지 (관리자 페이지에 등록된 이미지 불러오기) */}
       {settings?.logoUrl && settings.logoType === 'image' ? (
         <img 
           src={settings.logoUrl} 
@@ -28,11 +18,21 @@ export function Logo({ settings, className }: LogoProps) {
           referrerPolicy="no-referrer"
         />
       ) : (
-        /* 만약 오영 이미지 로고가 안 뜰 경우를 대비한 예비 텍스트 */
+        /* 오영 이미지 로고가 없을 경우 대비한 예비 텍스트 */
         <span className="font-black tracking-[0.1em] uppercase text-white text-[11px] sm:text-sm">
           OYOUNG
         </span>
       )}
+
+      {/* 2. 중앙 크로스(x) 마크 */}
+      <span className="text-white/30 font-light text-[10px] sm:text-xs">x</span>
+
+      {/* 3. 지니제이 로고 이미지 (public 폴더의 파일) */}
+      <img 
+        src="/jinij-logo.png" 
+        alt="JINI.J" 
+        className="h-5 sm:h-7 w-auto object-contain" 
+      />
 
     </div>
   );
