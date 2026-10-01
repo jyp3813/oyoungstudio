@@ -27,11 +27,11 @@ export function Logo({ settings, className }: LogoProps) {
       {/* 2. 중앙 크로스(x) 마크 */}
       <span className="text-white/30 font-light text-[10px] sm:text-xs">x</span>
 
-      {/* 3. 지니제이 로고 이미지 (public 폴더의 파일) */}
+      {/* 3. 지니제이 로고 이미지 (오영 로고와 시각적 밸런스를 맞추기 위해 h-3 sm:h-4로 사이즈 축소) */}
       <img 
         src="/jinij-logo.png" 
         alt="JINI.J" 
-        className="h-5 sm:h-7 w-auto object-contain" 
+        className="h-3 sm:h-4 w-auto object-contain" 
       />
 
     </div>
