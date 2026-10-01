@@ -87,11 +87,11 @@ export default function HomePage() {
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
               </div>
               
-              {/* 미팅용 임시 고정: 텍스트 순서 변경 OYOUNG x JINI. J */}
+              {/* OYOUNG (파란색) x JINI. J (붉은색) */}
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
-                <span className="text-center">OYOUNG</span> 
+                <span className="text-blue-600 text-center drop-shadow-lg">OYOUNG</span> 
                 <span className="text-white/30 font-light text-3xl md:text-5xl mx-2 md:mx-0">x</span> 
-                <span className="text-navy-light">JINI. J</span>
+                <span className="text-center drop-shadow-lg" style={{ color: '#A63325' }}>JINI. J</span>
               </h1>
               
               <p className="text-base sm:text-lg text-white/40 max-w-lg mx-auto leading-relaxed font-light italic mb-8 sm:mb-12">
