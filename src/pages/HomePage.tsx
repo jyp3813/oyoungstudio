@@ -87,7 +87,7 @@ export default function HomePage() {
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
               </div>
               
-              {/* OYOUNG 단독 메인 타이틀로 복구 */}
+              {/* OYOUNG 단독 메인 타이틀: 흰색 -> 네이비(text-navy)로 색상 복구 */}
               {settings?.heroTitleType === 'image' && settings?.heroTitleUrl ? (
                 <img 
                   src={settings.heroTitleUrl} 
@@ -95,7 +95,7 @@ export default function HomePage() {
                   className="max-h-24 sm:max-h-32 md:max-h-48 w-auto object-contain mb-8 sm:mb-12 drop-shadow-2xl"
                 />
               ) : (
-                <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase text-white drop-shadow-lg">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase text-navy drop-shadow-lg">
                   {settings?.heroTitle ? renderTextWithNewLines(settings.heroTitle, '') : (
                     <>오영<br/>OYOUNG</>
                   )}
