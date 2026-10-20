@@ -87,16 +87,24 @@ export default function HomePage() {
                 <span className="h-[1px] w-8 sm:w-12 bg-navy"></span>
               </div>
               
-              {/* OYOUNG (사이트 고유의 navy 색상) x JINI. J (붉은색) */}
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
-                <span className="text-navy text-center drop-shadow-lg">OYOUNG</span> 
-                <span className="text-white/30 font-light text-3xl md:text-5xl mx-2 md:mx-0">x</span> 
-                <span className="text-center drop-shadow-lg" style={{ color: '#A63325' }}>JINI. J</span>
-              </h1>
+              {/* OYOUNG 단독 메인 타이틀로 복구 */}
+              {settings?.heroTitleType === 'image' && settings?.heroTitleUrl ? (
+                <img 
+                  src={settings.heroTitleUrl} 
+                  alt="Hero Title" 
+                  className="max-h-24 sm:max-h-32 md:max-h-48 w-auto object-contain mb-8 sm:mb-12 drop-shadow-2xl"
+                />
+              ) : (
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] sm:leading-[1] tracking-tighter mb-8 sm:mb-12 uppercase text-white drop-shadow-lg">
+                  {settings?.heroTitle ? renderTextWithNewLines(settings.heroTitle, '') : (
+                    <>오영<br/>OYOUNG</>
+                  )}
+                </h1>
+              )}
               
               <p className="text-base sm:text-lg text-white/40 max-w-lg mx-auto leading-relaxed font-light italic mb-8 sm:mb-12">
                 {settings?.heroDesc ? renderTextWithNewLines(settings.heroDesc, '') : (
-                  <>세계를 무대로 하는 영상 제작 및 서비스 솔루션. <br className="hidden sm:block" />우리는 당신의 가치를 가장 혁신적인 방식으로 시각화합니다.</>
+                  <>세계를 무대로 하는 영상 제작 및 브랜딩 솔루션. <br className="hidden sm:block" />우린 당신의 가치를 가장 혁신적인 방식으로 시각화합니다.</>
                 )}
               </p>
               
@@ -130,7 +138,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center space-y-6 sm:space-y-8">
              <p className="text-base sm:text-xl text-white leading-relaxed font-light max-w-2xl">
                {settings?.purposeDesc ? renderTextWithNewLines(settings.purposeDesc, '') : (
-                 <>oYoung과 JINI. J는 창의적인 기획부터 완성도 높은 제작까지, 당신의 비전을 실현하는 통합 영상 솔루션을 제공합니다. <br className="hidden sm:block" />우리는 단순한 영상을 넘어 브랜드의 본질을 가장 혁신적인 방식으로 시각화합니다.</>
+                 <>오영(oYoung)은 감각적인 영상미와 전략적 브랜딩이 만나는 지점에서 탄생했습니다. <br className="hidden sm:block" />우리는 단순한 영상을 넘어 브랜드의 영혼을 시각화합니다.</>
                )}
              </p>
              <Link to="/services" className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-navy-light border-b border-navy-light/30 pb-1 w-fit hover:text-white transition-colors">
